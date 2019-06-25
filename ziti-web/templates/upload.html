@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+<style>
+
+.content{
+
+    height:300px;
+
+    width:50%;
+
+    border:black solid 1px;
+
+    margin:20px auto;
+
+    min-width:700px;
+
+}
+
+.pic{
+
+    height:200px;
+
+    width:200px;
+
+    border: gray dotted 2px;
+
+    margin: 50px 0 50px 50px;
+
+    text-align: center;
+
+    float: left;
+
+}
+
+.upload{
+
+    height:200px;
+
+    text-align: center;
+
+    margin:50px 0 50px 50px;
+
+}
+
+
+
+.a-upload,  .submitFile{
+
+    text-decoration:none;
+
+    padding: 4px 10px;
+
+    height: 20px;
+
+    line-height: 20px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    color: #888;
+
+    background: #fafafa;
+
+    border: 1px solid #ddd;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    display: inline-block;
+
+    *display: inline;
+
+    *zoom: 1
+
+}
+
+
+
+.a-upload  input , .submitFile input{
+
+    position: absolute;
+
+    font-size: 100px;
+
+    right: 0;
+
+    top: 0;
+
+    opacity: 0;
+
+    filter: alpha(opacity=0);
+
+    cursor: pointer
+
+}
+
+
+
+.a-upload:hover ,.submitFile:hover{
+
+    color: #444;
+
+    background: #eee;
+
+    border-color: #ccc;
+
+    text-decoration: none
+
+}
+
+.showFileName{
+
+    height: 20px;
+
+    width: 142px;
+
+    line-height: 20px;
+
+    position: relative;
+
+    color: #888;
+
+    background: #fafafa;
+
+    border: 1px solid #ddd;
+
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    margin:5px auto;
+
+}
+
+
+
+
+
+</style>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title >汉字字体识别 </title>
+
+</head>
+
+
+
+<h1 align="center">汉字字体识别</h1>
+
+<h6 align="center">本演示项目为：汉字字体的识别模型,识别字体的范围为：楷体（欧，颜，赵，魏碑，柳），隶体，草体，篆体</h6>
+
+
+
+<body>
+
+    <form action="" enctype='multipart/form-data' method='POST' class="content">
+
+        <img src="static/uploads/{{imgpath}}" alt="img" class="pic"/>
+
+        <div class="upload">
+
+            <h2>上传图片字体识别为：</h2>
+
+            <h3><font color="red">{{result}}</font></h3>
+
+            <h6><font color="red">{{prob}}</font></h6>
+
+
+
+            <div class="showFileName">未选择任何文件</div>
+
+
+
+            <a href="javascript:;" class="a-upload">选择文件
+
+                <input type="file" name="file" id="filename">
+
+            </a>
+
+
+
+            <script>
+
+                $(".a-upload").on("change","input[type='file']",function(){
+
+                    var filePath=$(this).val();
+
+                    var arr=filePath.split('\\');
+
+                    var fileName=arr[arr.length-1];
+
+                    var n = fileName.length;
+
+                    var fileNameS = fileName;
+
+                    if (n > 20){
+
+                       fileNameS = fileName.substring(0, 6) + "..." + fileName.substring(n-6, n);
+
+                    }
+
+
+
+                    if(filePath.indexOf("jpg") != -1|| filePath.indexOf("png") != -1|| filePath.indexOf("JPG") != -1|| filePath.indexOf("JPEG") != -1 ||filePath.indexOf("jpeg") != -1){
+
+                        $(".showFileName").html(fileNameS);
+
+                    }
+
+                    else{
+
+                        $(this).val("");
+
+                        $(".showFileName").html(fileNameS).show();
+
+                        return false;
+
+                    }
+
+                })
+
+
+
+                function ifEmpty(){
+
+					var isEmpty=$("#filename").val();
+
+					console.log(isEmpty);
+
+					if(isEmpty==""){
+
+						alert("上传不能为空");
+
+					}
+
+				}
+
+
+
+            </script>
+
+            <a href="javascript:;" class="submitFile">上传
+
+                <input type="submit" value="上传" onclick="ifEmpty()">
+
+            </a>
+
+       </div>
+
+
+
+    </form>
+
+
+
+</body>
+
+</html>
